@@ -56,6 +56,11 @@ def getPlayerAchievements(id,games):
         responses[game['appid']] = requests.get(API_CALL.format(game['appid'],STEAM_API_KEY, id)).json()
     return responses
 
+def getPlayerAchievementsForSingleGame(id, appid):
+    API_CALL = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid={0}&key={1}&steamid={2}&l=en"
+    response = requests.get(API_CALL.format(appid, STEAM_API_KEY, id)).json()
+    return response['playerstats']
+
 @app.route("/")
 def hello():
     vanityUrl = request.args.get("vanityUrl")
@@ -68,7 +73,19 @@ def hello():
         else:
             data = getOwnedGames(steamId)
             data['games'] = sorted(data['games'], key=lambda k: k['playtime_forever'], reverse=True)
+            data['playerinfo'] = getPlayerSummary(steamId)
             return render_template("score.html", data=data)
+
+@app.route("/getAchievementsForGame")
+def appGetAchievementsForGame():
+    steamid = request.args.get("steamid")
+    appid = request.args.get("appid")
+    if appid is None:
+        return "Invalid appid"
+    elif steamid is None:
+        return "Invalid steamid"
+
+    return render_template("getachievements.html", data=getPlayerAchievementsForSingleGame(steamid, appid))
 
 @app.template_filter('mintohours')
 def _jinja2_filter_mintohours(minutes):
