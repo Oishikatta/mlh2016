@@ -32,7 +32,7 @@ def getSteamIdFromVanityUrl(vanityUrl):
         return False
 
 def getOwnedGames(id):
-    API_CALL = " http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={0}&steamid={1}&format=json&include_played_free_games=1&include_appinfo=1"
+    API_CALL = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={0}&steamid={1}&format=json&include_played_free_games=1&include_appinfo=1"
     response = requests.get(API_CALL.format(STEAM_API_KEY,id)).json()
     if response['response']['game_count'] > 0:
         return response['response']
