@@ -9,10 +9,18 @@ def mean(x):
     suma = suma / quot
     return suma
 
-def prePercent():
-    pass
+# Calculates average hours for a given dictionary
+def dHours(dicta):
+    if(len(dicta)==0):
+        return 1
+    ave = 0
+    num = 0
+    for key, val in personal.iteritems():
+        ave = ave + mean(lHours)
+        num = num + 1
+    return ave / num
 
-# return the percentage of
+# Return the percentage of
 def percent(personal):
     if(len(personal) == 0):
         return 1
@@ -23,12 +31,14 @@ def percent(personal):
         dictsum = dictsum + 1
     return listValues / dictsum
 
-def numGames(games):
-    sum = 0
-    for i in games:
-        sum += 1
-    return sum
+# Calculates total number of games for a given list
+#def numGames(games):
+#   sum = 0
+#    for i in games:
+#        sum += 1
+#    return sum
 
+# Calculates final score using given objects
 def score(numGames, percent, avHours):
     final = numGames * (10 * avHours)
     percent = 1 - percent
@@ -38,8 +48,7 @@ def score(numGames, percent, avHours):
         final = final / percent
     return final
 
+# test function
 def test():
     lista = {'waffles':[0,0,0,0,0,0,0], 'tacos':[5,3,65,3,2,5]}
     print score(30, percent(lista), 90)
-
-test()
