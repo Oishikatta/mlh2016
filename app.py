@@ -67,9 +67,7 @@ def hello():
             return render_template("error.html", message="Invalid vanity URL.")
         else:
             data = getOwnedGames(steamId)
-            data2 = data['games']
-            odata = sorted(data2, key=lambda k: k['playtime_forever'], reverse=True)
-            data['games'] = odata
+            data['games'] = sorted(data['games'], key=lambda k: k['playtime_forever'], reverse=True)
             return render_template("score.html", data=data)
 
 @app.template_filter('mintohours')
