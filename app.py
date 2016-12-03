@@ -69,7 +69,7 @@ def getPlayerAchievementsForSingleGame(id, appid):
 @app.route("/")
 def hello():
     vanityUrl = request.args.get("vanityUrl")
-    if vanityUrl is None:
+    if vanityUrl is None or vanityUrl == "":
         return render_template("index.html")
     else:
         steamId = getSteamIdFromVanityUrl(vanityUrl)
