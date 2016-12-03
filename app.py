@@ -18,9 +18,14 @@ if len(STEAM_API_KEY) != 32:
 def getSteamIdFromVanityUrl(vanityUrl):
     API_CALL = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key={0}&vanityurl={1}"
     url = urllib.urlopen(API_CALL.format(STEAM_API_KEY, vanityUrl)).read()
-    print json.loads(url)
+    response = json.loads(url)
+    # example response: {u'response': {u'steamid': u'76561198040673336', u'success': 1}}
+    # example response: {u'response': {u'message': u'No match', u'success': 42}}
 
-getSteamIdFromVanityUrl("isitdead")
+    if response['response']['success'] == 1:
+        return response['response']['steamid']
+    else:
+        return False
 
 @app.route("/")
 def hello():
