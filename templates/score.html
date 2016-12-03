@@ -6,7 +6,8 @@
     <h3>You have <strong>{{ data['game_count'] }}</strong> games.</h3>
     <style type="text/css">
     div.game {
-        max-width: 185px;
+        width: 185px;
+        height: 210px;
         overflow: hidden;
         float: left;
         margin: 5px;
@@ -25,5 +26,9 @@
             <p>2weeks time: {{ game['playtime_2weeks'] }}</p>
         </div>
     {% endfor %}
-    {{ data }}
+    <div style="clear: both;">
+        <pre>
+            {{ data }}
+        </pre>
+    </div>
 {% endblock %}
