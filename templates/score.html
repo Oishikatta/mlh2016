@@ -20,7 +20,11 @@
     </style>
     {% for game in data['games'] %}
         <div class="game">
-            <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ game['appid'] }}/{{ game['img_logo_url'] }}.jpg">
+            {% if game['img_logo_url'] %}
+                <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ game['appid'] }}/{{ game['img_logo_url'] }}.jpg">
+            {% else %}
+                <img src="http://images.akamai.steamusercontent.com/ugc/39723915253582547/15528DE639E5ECBBB8C5DB8D8B43225A42682FAF/" style="width: 184px; height: 69px;">
+            {% endif %}
             <p class="gameName">{{ game['name'] }}</p>
             {% if game['playtime_forever'] == 0 %}
                 <p>Never played.</p>
