@@ -6,7 +6,7 @@
     <h3>You have <strong>{{ data['game_count'] }}</strong> games.</h3>
     <style type="text/css">
     div.game {
-        width: 185px;
+        width: 184px;
         height: 210px;
         overflow: hidden;
         float: left;
@@ -22,8 +22,14 @@
         <div class="game">
             <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ game['appid'] }}/{{ game['img_logo_url'] }}.jpg">
             <p class="gameName">{{ game['name'] }}</p>
-            <p>Forever time: {{ game['playtime_forever'] }}</p>
-            <p>2weeks time: {{ game['playtime_2weeks'] }}</p>
+            {% if game['playtime_forever'] == 0 %}
+                <p>Never played.</p>
+            {% else %}
+                <p>Forever time: <span class="foreverTime">{{ game['playtime_forever'] | mintohours }}</span> hours</p>
+            {% endif %}
+            {% if game['playtime_2weeks'] %}
+                <p>2weeks time: {{ game['playtime_2weeks'] | mintohours }}</p>
+            {% endif %}
         </div>
     {% endfor %}
     <div style="clear: both;">

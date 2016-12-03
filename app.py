@@ -3,6 +3,7 @@ import json
 import urllib
 import requests
 import requests_cache
+from collections import OrderedDict
 
 from flask import Flask
 from flask import render_template
@@ -66,7 +67,14 @@ def hello():
             return render_template("error.html", message="Invalid vanity URL.")
         else:
             data = getOwnedGames(steamId)
+            data2 = data['games']
+            odata = sorted(data2, key=lambda k: k['playtime_forever'], reverse=True)
+            data['games'] = odata
             return render_template("score.html", data=data)
+
+@app.template_filter('mintohours')
+def _jinja2_filter_mintohours(minutes):
+    return (minutes / 60)
 
 @app.route("/git-hook", methods=['GET', 'POST'])
 def githook():
