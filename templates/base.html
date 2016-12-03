@@ -1,9 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <title>{%block title %}{% endblock %}</title>
 </head>
 <body>
-{%block content %}{% endblock %}
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a>Home</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Project name</h3>
+        </div>
+        {%block content %}
+        <div class="jumbotron">
+            <h1>game score thing</h1>
+            <p class="lead">Enter your <strong>Steam</strong> vanity URL to get your score.</p>
+            <form>
+                <input type="text" name="vanityUrl" id="vanityUrl">
+                <p><a class="btn btn-lg btn-primary">Submit</a></p>
+            </form>
+        </div>
+        {% endblock %}
+    </div>
+
 </body>
 </html>

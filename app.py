@@ -4,7 +4,7 @@ import urllib
 
 from flask import Flask
 from flask import render_template
-
+from flask import request
 app = Flask(__name__)
 
 STEAM_API_KEY = ""
@@ -32,13 +32,22 @@ def getOwnedGames(id):
     url = urllib.urlopen(API_CALL.format(STEAM_API_KEY,id)).read()
     response = json.loads(url)
     if response['response']['game_count'] > 0:
-        return response
+        return response['response']
     else :
         return False
 
 @app.route("/")
 def hello():
-    return render_template("index.html")
+    vanityUrl = request.args.get("vanityUrl")
+    if vanityUrl is None:
+        return render_template("index.html")
+    else:
+        steamId = getSteamIdFromVanityUrl(vanityUrl)
+        if steamId == False:
+            return render_template("error.html", message="Invalid vanity URL.")
+        else:
+            data = getOwnedGames(steamId)
+            return render_template("score.html", data=data)
 
 @app.route("/git-hook", methods=['GET', 'POST'])
 def githook():

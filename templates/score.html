@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}score title{% endblock %}
+{% block content %}
+    {{ super() }}
+    <h1>Score</h1>
+    <h3>You have <strong>{{ data['game_count'] }}</strong> games.</h3>
+    {% for game in data['games'] %}
+        <div class="game">
+            <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ game['appid'] }}/{{ game['img_logo_url'] }}.jpg">
+            <p class="gameName">{{ game['name'] }}</p>
+            <p>Forever time: {{ game['playtime_forever'] }}</p>
+            <p>2weeks time: {{ game['playtime_2weeks'] }}</p>
+        </div>
+    {% endfor %}
+    {{ data }}
+{% endblock %}
