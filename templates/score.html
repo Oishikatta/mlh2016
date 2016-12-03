@@ -4,6 +4,19 @@
     {{ super() }}
     <h1>Score</h1>
     <h3>You have <strong>{{ data['game_count'] }}</strong> games.</h3>
+    <style type="text/css">
+    div.game {
+        max-width: 185px;
+        overflow: hidden;
+        float: left;
+        margin: 5px;
+        border-radius: 10px;
+        box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+    }
+    div.game p {
+        padding: 5px;
+    }
+    </style>
     {% for game in data['games'] %}
         <div class="game">
             <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ game['appid'] }}/{{ game['img_logo_url'] }}.jpg">
