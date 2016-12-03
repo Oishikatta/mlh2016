@@ -66,6 +66,18 @@ def getPlayerAchievementsForSingleGame(id, appid):
     else:
         return dict()
 
+def achievementEarned(achievements):
+    earnedAchievements = {}
+    temp = []
+    for appid in achievements:
+        if achievements[appid]:
+            if 'achievements' in achievements[appid]['playerstats']:
+                for i in achievements[appid]['playerstats']['achievements']:
+                    temp.append(i['achieved'])
+                earnedAchievements[appid] = temp
+                temp =[]
+    return earnedAchievements
+
 @app.route("/")
 def hello():
     vanityUrl = request.args.get("vanityUrl")
@@ -77,6 +89,12 @@ def hello():
             return render_template("error.html", message="Invalid vanity URL.")
         else:
             data = getOwnedGames(steamId)
+
+            achievements =getPlayerAchievements(steamId, data)
+            #for austin
+            earnedAchievement = achievementEarned(achievements)
+            numberOfGames = data['game_count']
+
             data['games'] = sorted(data['games'], key=lambda k: k['playtime_forever'], reverse=True)
             data['playerinfo'] = getPlayerSummary(steamId)
             return render_template("score.html", data=data)
