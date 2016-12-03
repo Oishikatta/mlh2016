@@ -1,0 +1,12 @@
+{% for achievement in data['achievements'] %}
+    {% if achievement['achieved'] == 1 %}
+        <div class="achievement">
+        <h3>{{ achievement['name'] }}</h3>
+        {% if achievement['description'] %}
+            <p>{{ achievement['description'] }}
+        {% endif %}
+        </div>
+    {% endif %}
+{% else %}
+    <h3>No achievements for this game.</h3>
+{% endfor %}

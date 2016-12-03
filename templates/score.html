@@ -17,9 +17,19 @@
     div.game p {
         padding: 5px;
     }
+    div.achievement {
+        width: 200px;
+        height: 200px;
+        float: left;
+        box-shadow: 1px 1px 5px;
+        padding: 0px 5px;
+        margin: 5px;
+        border-radius: 5px;
+    }
     </style>
     {% for game in data['games'] %}
-        <div class="game">
+    <a href="#" data-featherlight="/getAchievementsForGame?appid={{ game['appid'] }}&steamid={{ data['playerinfo']['steamid'] }}" class="achievements">
+        <div class="game" data-appid="{{ game['appid'] }}" data-steamid="{{ data['playerinfo']['steamid'] }}">
             {% if game['img_logo_url'] %}
                 <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{ game['appid'] }}/{{ game['img_logo_url'] }}.jpg">
             {% else %}
@@ -35,6 +45,7 @@
                 <p>2weeks time: {{ game['playtime_2weeks'] | mintohours }}</p>
             {% endif %}
         </div>
+        </a>
     {% endfor %}
     <div style="clear: both;">
         <pre>
