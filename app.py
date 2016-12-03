@@ -1,6 +1,8 @@
 import os
 import json
 import urllib
+import requests
+import requests_cache
 
 from flask import Flask
 from flask import render_template
@@ -15,10 +17,12 @@ if len(STEAM_API_KEY) != 32:
     print "Invalid Steam API key. Create steam_apikey.txt before running the app."
     exit()
 
+requests_cache.install_cache('api_cache')
+
+
 def getSteamIdFromVanityUrl(vanityUrl):
     API_CALL = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key={0}&vanityurl={1}"
-    url = urllib.urlopen(API_CALL.format(STEAM_API_KEY, vanityUrl)).read()
-    response = json.loads(url)
+    response = requests.get(API_CALL.format(STEAM_API_KEY, vanityUrl)).json()
     # example response: {u'response': {u'steamid': u'76561198040673336', u'success': 1}}
     # example response: {u'response': {u'message': u'No match', u'success': 42}}
 
@@ -29,8 +33,7 @@ def getSteamIdFromVanityUrl(vanityUrl):
 
 def getOwnedGames(id):
     API_CALL = " http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={0}&steamid={1}&format=json&include_played_free_games=1&include_appinfo=1"
-    url = urllib.urlopen(API_CALL.format(STEAM_API_KEY,id)).read()
-    response = json.loads(url)
+    response = requests.get(API_CALL.format(STEAM_API_KEY,id)).json()
     if response['response']['game_count'] > 0:
         return response['response']
     else :
