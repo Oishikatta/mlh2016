@@ -61,7 +61,10 @@ def getPlayerAchievementsForSingleGame(id, appid):
     response = requests.get(API_CALL.format(appid, STEAM_API_KEY, id)).json()
     ps = response['playerstats']
 
-    return sorted(ps['achievements'], key=lambda k: k['achieved'], reverse=True) 
+    if "achievements" in ps:
+        return sorted(ps['achievements'], key=lambda k: k['achieved'], reverse=True)
+    else:
+        return dict()
 
 @app.route("/")
 def hello():
