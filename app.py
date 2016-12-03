@@ -39,6 +39,15 @@ def getOwnedGames(id):
     else :
         return False
 
+def getPlayerSummary(id):
+    API_CALL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={0}&steamids={1}"
+    response = requests.get(API_CALL.format(STEAM_API_KEY, id)).json()
+
+    if len(response['response']['players']) == 0:
+        return False
+    else:
+        return response['response']['players'][0]
+
 @app.route("/")
 def hello():
     vanityUrl = request.args.get("vanityUrl")
