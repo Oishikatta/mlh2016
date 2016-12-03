@@ -8,7 +8,7 @@ def hello():
 
 @app.route("/git-hook", methods=['GET', 'POST'])
 def githook():
-    return os.popen("git pull").read()
+    return os.popen("git pull; killall python2.7").read()
 
 if __name__ == "__main__":
     app.run()
