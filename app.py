@@ -59,7 +59,9 @@ def getPlayerAchievements(id,games):
 def getPlayerAchievementsForSingleGame(id, appid):
     API_CALL = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid={0}&key={1}&steamid={2}&l=en"
     response = requests.get(API_CALL.format(appid, STEAM_API_KEY, id)).json()
-    return response['playerstats']
+    ps = response['playerstats']
+
+    return sorted(ps['achievements'], key=lambda k: k['achieved'], reverse=True) 
 
 @app.route("/")
 def hello():

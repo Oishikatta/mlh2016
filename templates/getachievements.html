@@ -1,12 +1,10 @@
-{% for achievement in data['achievements'] %}
-    {% if achievement['achieved'] == 1 %}
-        <div class="achievement">
+{% for achievement in data %}
+    <div class="achievement {% if achievement['achieved'] == 0 %}locked{% endif %}">
         <h3>{{ achievement['name'] }}</h3>
         {% if achievement['description'] %}
             <p>{{ achievement['description'] }}
         {% endif %}
-        </div>
-    {% endif %}
+    </div>
 {% else %}
     <h3>No achievements for this game.</h3>
 {% endfor %}
