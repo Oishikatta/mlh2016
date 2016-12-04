@@ -39,6 +39,13 @@ def getOwnedGames(id):
         return response['response']
     else :
         return False
+def getHoursPerGame(library):
+    pprint(library)
+    response = {}
+    for singlegame in library['games']:
+        appid = singlegame['appid']
+        response[appid] = singlegame['playtime_forever']
+    return response
 
 def getPlayerSummary(id):
     API_CALL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={0}&steamids={1}"
@@ -65,6 +72,15 @@ def getPlayerAchievementsForSingleGame(id, appid):
         return sorted(ps['achievements'], key=lambda k: k['achieved'], reverse=True)
     else:
         return dict()
+def getTotalAchievements(achievements):
+    responses = {}
+    for appid in achievements:
+        if(len(achievements[appid]) != 0):
+            if('achievements' in achievements[appid]['playerstats']):
+                responses[appid] = len(achievements[appid]['playerstats']['achievements'])
+        else:
+            continue
+    return responses
 
 def achievementEarned(achievements):
     earnedAchievements = {}
@@ -92,6 +108,8 @@ def hello():
 
             achievements =getPlayerAchievements(steamId, data)
             #for austin
+            totalHoursPerGame = getHoursPerGame(data)
+            totalPossibleAchievements = getTotalAchievements(achievements)
             earnedAchievement = achievementEarned(achievements)
             numberOfGames = data['game_count']
 
@@ -120,4 +138,3 @@ def githook():
 
 if __name__ == "__main__":
     app.run()
-
