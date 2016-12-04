@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %}score title{% endblock %}
-{% block score %}{{ score }}{% endblock %}
+{% block score %}<h1 style="text-decoration: underline; font-weight: bold;">Score</h1>
+<h1>{{ score }}</h1>
+<a class="twitter-share-button" data-size="large"
+  href="https://twitter.com/intent/tweet?text=My #GreenGoblin score: {{ score }}">
+Tweet</a>
+{% endblock %}
 {% block content %}
     {{ super() }}
     <h1>Score</h1>

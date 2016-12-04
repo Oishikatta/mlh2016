@@ -21,7 +21,7 @@
         </div>
         {%block content %}
         <div class="jumbotron">
-            <h1>{% block score %}game score thing{% endblock %}</h1>
+            {% block score %}<h1>game score thing</h1>{% endblock %}
             <p class="lead">Enter your <strong>Steam</strong> vanity URL to get your score.</p>
             <form class="form">
                 <input type="text" name="vanityUrl" id="vanityUrl" class="form-control" placeholder="Steam Vanity URL (username only)" style="margin: 10px">
@@ -30,6 +30,21 @@
         </div>
         {% endblock %}
     </div>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
 </body>
 </html>

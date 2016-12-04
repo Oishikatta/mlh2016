@@ -104,7 +104,7 @@ def getScore(steamId, games):
     numberOfGames = data['game_count']
 
     percenti = Score.percent(earnedAchievement, totalPossibleAchievements)
-    aveHours = numHours(totalHoursPerGame) / numberOfGames
+    aveHours = Score.getNumHours(totalHoursPerGame) / numberOfGames
     #def score(numGames, percent, avHours)
     score = Score.score(numberOfGames, percenti, aveHours)
     return score
@@ -120,7 +120,7 @@ def hello():
             return render_template("error.html", message="Invalid vanity URL.")
         else:
             data = getOwnedGames(steamId)
-            score = getScore(steamId, data)
+            score = getScore(steamId, data) / 100
 
             data['games'] = sorted(data['games'], key=lambda k: k['playtime_forever'], reverse=True)
             data['playerinfo'] = getPlayerSummary(steamId)

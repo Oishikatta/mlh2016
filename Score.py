@@ -23,8 +23,7 @@ def dHours(dicta):
 def getNumHours(dicta):
     suma = 0
     for key, val in dicta.iteritems():
-        for i in val:
-            suma = suma + i
+        suma = suma + val
     return suma
 
 # Return the percentage of
@@ -34,7 +33,7 @@ def percent(personal, total):
     listValues = 0
     dictsum = 0
     for key, val in total.iteritems():
-        dictsum = dictsum + mean(val)
+        dictsum = dictsum + val
     for key, val in personal.iteritems():
         listValues = listValues + mean(val)
     return listValues / dictsum
