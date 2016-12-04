@@ -56,7 +56,7 @@ def getPlayerSummary(id):
         return response['response']['players'][0]
 
 def getPlayerAchievements(id,games):
-    API_CALL ="http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid={0}&key={1}&steamid={2}"
+    API_CALL ="http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid={0}&key={1}&steamid={2}&l=en"
     responses = {}
     for game in games['games']:
         responses[game['appid']] = requests.get(API_CALL.format(game['appid'],STEAM_API_KEY, id)).json()
