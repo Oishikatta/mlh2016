@@ -148,4 +148,4 @@ def githook():
     return os.popen("git pull; killall python2.7").read()
 
 if __name__ == "__main__":
-    app.run()
+    app.run(threaded=True)
