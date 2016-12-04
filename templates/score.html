@@ -30,6 +30,9 @@
     div.locked {
         background: #ccc;
     }
+    .featherlight-content {
+        border-radius: 5px;
+    }
     </style>
     {% for game in data['games'] %}
     <a href="#" data-featherlight="/getAchievementsForGame?appid={{ game['appid'] }}&steamid={{ data['playerinfo']['steamid'] }}" class="achievements">
