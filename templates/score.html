@@ -3,12 +3,11 @@
 {% block score %}<h1 style="font-family: 'Bungee', cursive; text-decoration: underline; font-weight: bold;">Score</h1>
 <h1>{{ score }}</h1>
 <a class="twitter-share-button" data-size="large"
-  href="https://twitter.com/intent/tweet?text=My #GreenGoblin score: {{ score }}">
+  href="https://twitter.com/intent/tweet?text=My #GoblinGrade: {{ score }}">
 Tweet</a>
 {% endblock %}
 {% block content %}
     {{ super() }}
-    <h1>Score</h1>
     <h3>You have <strong>{{ data['game_count'] }}</strong> games.</h3>
     <style type="text/css">
     div.game {
@@ -36,10 +35,15 @@ Tweet</a>
     div.locked {
         background: #ccc;
     }
+    div.gameContainer {
+        width: 600px;
+        margin: 0 auto;
+    }
     .featherlight-content {
         border-radius: 5px;
     }
     </style>
+    <div class="gameContainer">
     {% for game in data['games'] %}
     <a href="#" data-featherlight="/getAchievementsForGame?appid={{ game['appid'] }}&steamid={{ data['playerinfo']['steamid'] }}" class="achievements">
         <div class="game" data-appid="{{ game['appid'] }}" data-steamid="{{ data['playerinfo']['steamid'] }}">
@@ -60,6 +64,7 @@ Tweet</a>
         </div>
         </a>
     {% endfor %}
+    </div>
     <div style="clear: both;">
         <pre>
             {{ data }}
