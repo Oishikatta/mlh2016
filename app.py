@@ -41,7 +41,6 @@ def getOwnedGames(id):
     else :
         return False
 def getHoursPerGame(library):
-    pprint(library)
     response = {}
     for singlegame in library['games']:
         appid = singlegame['appid']
@@ -95,8 +94,8 @@ def achievementEarned(achievements):
                 temp =[]
     return earnedAchievements
 
-def getScore():
-    data = getOwnedGames(steamId)
+def getScore(steamId, games):
+    data = games
     achievements = getPlayerAchievements(steamId, data)
     #for austin
     totalHoursPerGame = getHoursPerGame(data)
@@ -104,10 +103,10 @@ def getScore():
     earnedAchievement = achievementEarned(achievements)
     numberOfGames = data['game_count']
 
-    percent = percent(earnedAchievement, totalPossibleAchievements)
+    percenti = Score.percent(earnedAchievement, totalPossibleAchievements)
     aveHours = numHours(totalHoursPerGame) / numberOfGames
     #def score(numGames, percent, avHours)
-    score = score(numberOfGames, percent, aveHours)
+    score = Score.score(numberOfGames, percenti, aveHours)
     return score
 
 @app.route("/")
@@ -121,10 +120,12 @@ def hello():
             return render_template("error.html", message="Invalid vanity URL.")
         else:
             data = getOwnedGames(steamId)
+            score = getScore(steamId, data)
 
             data['games'] = sorted(data['games'], key=lambda k: k['playtime_forever'], reverse=True)
             data['playerinfo'] = getPlayerSummary(steamId)
-            return render_template("score.html", data=data)
+
+            return render_template("score.html", data=data, score=score)
 
 
 @app.route("/getAchievementsForGame")
