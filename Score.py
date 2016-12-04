@@ -20,23 +20,22 @@ def dHours(dicta):
         num = num + 1
     return ave / num
 
+def getNumHours(dicta):
+    suma = 0
+    for key, val in dicta.iteritems():
+        for i in val:
+            suma = suma + i
+    return suma
+
 # Return the percentage of
-def percent(personal):
+def percent(personal, total):
     if(len(personal) == 0):
         return 1
     listValues = 0
-    dictsum = 0
+    dictsum = total
     for key, val in personal.iteritems():
         listValues = listValues + mean(val)
-        dictsum = dictsum + 1
     return listValues / dictsum
-
-# Calculates total number of games for a given list
-#def numGames(games):
-#   sum = 0
-#    for i in games:
-#        sum += 1
-#    return sum
 
 # Calculates final score using given objects
 def score(numGames, percent, avHours):
@@ -50,5 +49,5 @@ def score(numGames, percent, avHours):
 
 # test function
 def test():
-    lista = {'waffles':[0,0,0,0,0,0,0], 'tacos':[5,3,65,3,2,5]}
-    print score(30, percent(lista), 90)
+    lista = {'waffles':[5,0,0], 'tacos':[10,29]}
+    print getNumHours(lista)
