@@ -20,17 +20,17 @@ if len(STEAM_API_KEY) != 32:
 
 requests_cache.install_cache('api_cache')
 
-
 def getSteamIdFromVanityUrl(vanityUrl):
     API_CALL = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key={0}&vanityurl={1}"
-    response = requests.get(API_CALL.format(STEAM_API_KEY, vanityUrl)).json()
-    # example response: {u'response': {u'steamid': u'76561198040673336', u'success': 1}}
-    # example response: {u'response': {u'message': u'No match', u'success': 42}}
+    with requests_cache.disabled():
+        response = requests.get(API_CALL.format(STEAM_API_KEY, vanityUrl)).json()
+        # example response: {u'response': {u'steamid': u'76561198040673336', u'success': 1}}
+        # example response: {u'response': {u'message': u'No match', u'success': 42}}
 
-    if response['response']['success'] == 1:
-        return response['response']['steamid']
-    else:
-        return False
+        if response['response']['success'] == 1:
+            return response['response']['steamid']
+        else:
+            return False
 
 def getOwnedGames(id):
     API_CALL = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={0}&steamid={1}&format=json&include_played_free_games=1&include_appinfo=1"
