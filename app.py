@@ -40,7 +40,6 @@ def getOwnedGames(id):
     else :
         return False
 def getHoursPerGame(library):
-    pprint(library)
     response = {}
     for singlegame in library['games']:
         appid = singlegame['appid']
