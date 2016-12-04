@@ -32,7 +32,9 @@ def percent(personal, total):
     if(len(personal) == 0):
         return 1
     listValues = 0
-    dictsum = total
+    dictsum = 0
+    for key, val in total.iteritems():
+        dictsum = dictsum + mean(val)
     for key, val in personal.iteritems():
         listValues = listValues + mean(val)
     return listValues / dictsum
